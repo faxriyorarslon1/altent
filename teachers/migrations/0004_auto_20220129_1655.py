@@ -14,19 +14,19 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='teacher',
             name='role_eng',
-            field=models.CharField(default=django.utils.timezone.now, max_length=30),
+            field=models.CharField(default="rolsiz", max_length=30),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='teacher',
             name='role_ru',
-            field=models.CharField(default=django.utils.timezone.now, max_length=30),
+            field=models.CharField(default="rolsiz", max_length=30),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='teacher',
             name='role_uz',
-            field=models.CharField(default=django.utils.timezone.now, max_length=30),
+            field=models.CharField(default="rolsiz", max_length=30),
             preserve_default=False,
         ),
     ]
