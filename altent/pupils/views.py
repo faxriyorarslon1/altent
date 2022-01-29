@@ -1,5 +1,5 @@
-from .models import Yordam
-from .serializers import YordamSerializer, RuSerializer, UzSerializer, EngSerializer
+from .models import Pupil
+from .serializers import PupilSerializer, RuSerializer, UzSerializer, EngSerializer
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -7,56 +7,56 @@ from rest_framework import status, permissions
 from django.utils.translation import ugettext_lazy as _
 
 
-class YordamList(APIView):
+class PupilList(APIView):
     
     """
-    List all yordams, or create a new yordam.
+    List all pupils, or create a new pupil.
     """
     def get(self, request, format=None):
         try:
-            yordams = Yordam.objects.all()
-            serializer = YordamSerializer(yordams, many=True)
+            pupils = Pupil.objects.all()
+            serializer = PupilSerializer(pupils, many=True)
             return Response(serializer.data)
         except:
             return Response(
-                {"detail": _("Help not found.")},
+                {"detail": _("Pupil not found.")},
                 status=status.HTTP_404_NOT_FOUND
             )
 
 
     def post(self, request, format=None):
-        serializer = YordamSerializer(data=request.data)
+        serializer = PupilSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class YordamDetail(APIView):
+class PupilDetail(APIView):
     """
-    Retrieve, update or delete a yordam instance.
+    Retrieve, update or delete a pupil instance.
     """
     def get_object(self, pk):
         try:
-            return Yordam.objects.get(pk=pk)
-        except Yordam.DoesNotExist:
+            return Pupil.objects.get(pk=pk)
+        except Pupil.DoesNotExist:
             raise Http404
 
     def get(self, request, pk, format=None):
         try:
-            yordam = self.get_object(pk)
-            serializer = YordamSerializer(yordam)
+            pupil = self.get_object(pk)
+            serializer = PupilSerializer(pupil)
             return Response(serializer.data)
         except:
             return Response(
-                {"detail": _("Help not found.")},
+                {"detail": _("pupil not found.")},
                 status=status.HTTP_404_NOT_FOUND
             )
 
     def put(self, request, pk, format=None):
         try:
-            yordam = self.get_object(pk)
-            serializer = YordamSerializer(yordam, data=request.data)
+            pupil = self.get_object(pk)
+            serializer = PupilSerializer(pupil, data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data)
@@ -69,8 +69,8 @@ class YordamDetail(APIView):
 
     def delete(self, request, pk, format=None):
         try:
-            yordam = self.get_object(pk)
-            yordam.delete()
+            pupil = self.get_object(pk)
+            pupil.delete()
             return Response({"Data was deleted."},status=status.HTTP_204_NO_CONTENT)
         except:
             return Response(
@@ -79,23 +79,23 @@ class YordamDetail(APIView):
             )
 
 
-class YordamLanguage(APIView):
+class PupilLanguage(APIView):
 
     permission_classes = (permissions.AllowAny,)
 
     def get(self, request, language):
         try:
-            yordams = Yordam.objects.all()
+            pupils = Pupil.objects.all()
             if language=="uz":
-                serializer = UzSerializer(yordams, many=True)
+                serializer = UzSerializer(pupils, many=True)
             elif language=="eng":
-                serializer = EngSerializer(yordams, many=True)
+                serializer = EngSerializer(pupils, many=True)
             else:
-                serializer = RuSerializer(yordams, many=True)
+                serializer = RuSerializer(pupils, many=True)
 
             return Response(serializer.data)
         except:
             return Response(
-                {"detail": _("Help not found.")},
+                {"detail": _("Pupil not found.")},
                 status=status.HTTP_404_NOT_FOUND
             )

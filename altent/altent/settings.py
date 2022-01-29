@@ -1,7 +1,8 @@
-
+import os
 from os.path import join
 from pathlib import Path
 from django.utils.translation import ugettext_lazy as _
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +22,9 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 PROJECT_APPS=[
-    'yordam'
+    'yordam',
+    'teachers',
+    'pupils',
 ]
 
 INSTALLED_APPS = [
@@ -31,7 +34,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
+    'drf_yasg',
+    'rest_framework',
+    
 ]+PROJECT_APPS
 
 MIDDLEWARE = [
@@ -116,9 +121,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR,'static')
 STATICFILES_DIRS = (
-    join(BASE_DIR, "static"),
-)
+    os.path.join(BASE_DIR,'static'),
+    )
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIAFILES_DIRS = (
+    os.path.join(BASE_DIR,'media'),
+    )
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
