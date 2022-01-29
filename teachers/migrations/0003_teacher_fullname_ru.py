@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='teacher',
             name='fullname_ru',
-            field=models.CharField(default=django.utils.timezone.now, max_length=30),
+            field=models.CharField(default="ism yoq", max_length=30),
             preserve_default=False,
         ),
     ]
